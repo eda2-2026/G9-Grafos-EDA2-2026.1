@@ -127,3 +127,30 @@ def bfs_visual(grafo, inicio, destino):
                     fila.append((vizinho, caminho + [vizinho]))
                     
     return None
+
+# 3. INTERFACE INTERATIVA 
+
+while True:
+    limpar_tela()
+    print("======================================================")
+    print("               SISTEMA DE ROTAS DE METRÔ              ")
+    print("======================================================")
+    print("1 - Brasília (BSB)")
+    print("2 - São Paulo (SP)")
+    print("0 - Sair")
+    
+    opcao_cidade = input("\nEscolha a cidade (0, 1 ou 2): ").strip()
+    
+    if opcao_cidade == '0':
+        print("Saindo do sistema. Até logo!")
+        break
+    elif opcao_cidade == '1':
+        grafo_atual = rede_metro_bsb
+        desenhar_mapa = desenhar_mapa_bsb
+    elif opcao_cidade == '2':
+        grafo_atual = rede_metro_sp
+        desenhar_mapa = desenhar_mapa_sp
+    else:
+        print("Opção inválida! Tente novamente.")
+        time.sleep(2)
+        continue
