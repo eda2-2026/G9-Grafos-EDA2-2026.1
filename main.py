@@ -91,3 +91,39 @@ def desenhar_mapa_sp():
     print("                                     [Vila Mariana]   ")
     print("                                                      ")
     print("======================================================")
+
+def bfs_visual(grafo, inicio, destino):
+    """Executa a Busca em Largura (BFS) usando uma FILA"""
+    fila = [(inicio, [inicio])]
+    visitados = set()
+
+    print(f"\n[SISTEMA] Iniciando Busca em LARGURA (BFS)...")
+    time.sleep(1)
+
+    while fila:
+        vertice, caminho = fila.pop(0) 
+
+        if vertice not in visitados:
+            print(f"🔎 Explorando estação: {vertice}...")
+            time.sleep(0.7) 
+
+            if vertice == destino:
+                print("\n✅ DESTINO ENCONTRADO!")
+                time.sleep(1)
+                return caminho
+            
+            visitados.add(vertice)
+            
+            vizinhos_nao_visitados = [v for v in grafo[vertice] if v not in visitados]
+            if vizinhos_nao_visitados:
+                print(f"   -> Ramificando para: {', '.join(vizinhos_nao_visitados)}")
+            else:
+                print("   -> Fim da linha. Voltando...")
+            
+            time.sleep(0.5)
+
+            for vizinho in grafo[vertice]:
+                if vizinho not in visitados:
+                    fila.append((vizinho, caminho + [vizinho]))
+                    
+    return None
