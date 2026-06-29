@@ -191,3 +191,59 @@ while True:
         print("Opção inválida! Tente novamente.")
         time.sleep(2)
         continue
+
+    limpar_tela()
+    desenhar_mapa()
+
+    estacoes_disponiveis = list(grafo_atual.keys())
+    print("\nEstações disponíveis:")
+    print(", ".join(estacoes_disponiveis))
+
+    while True:
+        origem = input("\n📍 Digite a estação de ORIGEM: ").strip().title()
+        if origem in grafo_atual:
+            break
+        print("❌ Estação inválida. Digite exatamente como está na lista.")
+
+    while True:
+        destino = input("🏁 Digite a estação de DESTINO: ").strip().title()
+        if destino in grafo_atual:
+            break
+        print("❌ Estação inválida. Digite exatamente como está na lista.")
+
+    
+    print("\n" + "="*54)
+    print(" MÉTODOS DE BUSCA DISPONÍVEIS:")
+    print(" 1 - Busca em Largura (BFS) - Garante o menor caminho")
+    print(" 2 - Busca em Profundidade (DFS) - Explora até o fim")
+    print("="*54)
+    
+    while True:
+        opcao_busca = input("Escolha o algoritmo (1 ou 2): ").strip()
+        if opcao_busca in ['1', '2']:
+            break
+        print("❌ Opção inválida. Digite 1 ou 2.")
+
+    print("\n" + "-"*54)
+
+
+    if opcao_busca == '1':
+        rota = bfs_visual(grafo_atual, origem, destino)
+    else:
+        rota = dfs_visual(grafo_atual, origem, destino)
+
+    
+    print("\n======================================================")
+    if rota:
+        print(" 🚇 ROTA ENCONTRADA:")
+        caminho_visual = " ➔ ".join([f"[{estacao}]" for estacao in rota])
+        print(f"\n   {caminho_visual}")
+        print(f"\n ⏱️ Total de estações percorridas: {len(rota)}")
+        
+        if opcao_busca == '2':
+            print("Nota: A DFS encontra um caminho, não necessariamente o mais curto!")
+    else:
+        print(" ❌ Não foi possível encontrar uma rota.")
+    print("======================================================")
+    
+    input("\nPressione ENTER para voltar ao menu inicial...")
