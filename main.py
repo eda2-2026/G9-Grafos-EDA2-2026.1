@@ -128,6 +128,43 @@ def bfs_visual(grafo, inicio, destino):
                     
     return None
 
+def dfs_visual(grafo, inicio, destino):
+    """Executa a Busca em Profundidade (DFS) usando uma PILHA"""
+    pilha = [(inicio, [inicio])]
+    visitados = set()
+
+    print(f"\n[SISTEMA] Iniciando Busca em PROFUNDIDADE (DFS)...")
+    time.sleep(1)
+
+    while pilha:
+        vertice, caminho = pilha.pop() 
+
+        if vertice not in visitados:
+            print(f"🔎 Aprofundando na estação: {vertice}...")
+            time.sleep(0.7) 
+
+            if vertice == destino:
+                print("\n✅ DESTINO ENCONTRADO!")
+                time.sleep(1)
+                return caminho
+            
+            visitados.add(vertice)
+            
+            vizinhos_nao_visitados = [v for v in grafo[vertice] if v not in visitados]
+            if vizinhos_nao_visitados:
+                print(f"   -> Descendo para: {', '.join(vizinhos_nao_visitados)}")
+            else:
+                print("   -> Beco sem saída. Fazendo backtracking...")
+            
+            time.sleep(0.5)
+
+            
+            for vizinho in reversed(grafo[vertice]):
+                if vizinho not in visitados:
+                    pilha.append((vizinho, caminho + [vizinho]))
+                    
+    return None
+
 # 3. INTERFACE INTERATIVA 
 
 while True:
